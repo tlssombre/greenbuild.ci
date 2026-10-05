@@ -25,7 +25,7 @@ export function Intro({ active, onSkip }: { active: boolean; onSkip: () => void 
     <div className="intro-grain" aria-hidden="true"/>
     <div className="intro-blueprint" aria-hidden="true"><div/><div/><div/><span/></div>
     <div className="intro-panels" aria-hidden="true">{Array.from({length:5},(_,i)=><div className="intro-panel" key={i}><img src="/images/campus-finished.webp" alt="" style={{left:`-${i*20}vw`}}/></div>)}</div>
-    <div className="intro-copy"><p className="intro-overline">MAN · CÔTE D’IVOIRE</p><div className="intro-wordmark"><span>GREEN</span><span>BUILD</span></div><div className="intro-story"><span>De la matière.</span><span>À un lieu.</span><span>À la vie.</span></div></div>
+    <div className="intro-copy"><p className="intro-overline">MAN · CÔTE D’IVOIRE</p><div className="intro-wordmark"><img src="/images/greenbuild-logo.png" alt="GreenBuild" /></div><div className="intro-story"><span>De la matière.</span><span>À un lieu.</span><span>À la vie.</span></div></div>
     <div className="intro-bottom"><span>BÂTIR DURABLEMENT. LOGER DIGNEMENT.</span><button type="button" onClick={onSkip} tabIndex={active?0:-1}>Passer l’intro <span aria-hidden="true">↗</span></button></div>
     <div className="intro-progress" aria-hidden="true"/>
   </div>;
