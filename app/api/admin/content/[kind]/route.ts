@@ -1,0 +1,11 @@
+import { NextRequest } from 'next/server';
+import { randomUUID } from 'node:crypto';
+import { contentKinds, type ContentKind, type ContentRecord } from '@/lib/types';
+import { listContent,saveContent,deleteContent } from '@/lib/db';
+import { checkOrigin,requireAdmin,errorResponse,HttpError,jsonBody,text,safeUrl } from '@/lib/security';
+export const runtime='nodejs';
+type Context={params:Promise<{kind:string}>};
+async function kindFrom(context:Context){const {kind}=await context.params;if(!contentKinds.includes(kind as ContentKind))throw new HttpError(404,'Rubrique inconnue.');return kind as ContentKind;}
+export async function GET(_request:NextRequest,context:Context){try{await requireAdmin();return Response.json(listContent(await kindFrom(context)),{headers:{'Cache-Control':'no-store'}});}catch(error){return errorResponse(error);}}
+export async function POST(request:NextRequest,context:Context){try{checkOrigin(request);await requireAdmin();const kind=await kindFrom(context);const data=await jsonBody(request);const singleton=kind==='invest'||kind==='contact';const document:ContentRecord={id:singleton?`${kind}-main`:text(data.id,'Identifiant',80)||randomUUID(),kind,title:text(data.title,'Le titre',200,true),subtitle:text(data.subtitle,'Le sous-titre',500),body:text(data.body,'Le contenu',15000),image:safeUrl(data.image),link:safeUrl(data.link),location:text(data.location,'Le lieu',200),contract:text(data.contract,'Le contrat',100),email:text(data.email,'L’e-mail',254),phone:text(data.phone,'Le téléphone',80),published:data.published===true,sort:Number.isFinite(Number(data.sort))?Math.max(-1000,Math.min(1000,Number(data.sort))):0,updatedAt:new Date().toISOString()};saveContent(kind,document);return Response.json(document);}catch(error){return errorResponse(error);}}
+export async function DELETE(request:NextRequest,context:Context){try{checkOrigin(request);await requireAdmin();const kind=await kindFrom(context);if(kind==='invest'||kind==='contact')throw new HttpError(400,'Cette rubrique ne peut pas être supprimée.');const data=await jsonBody(request,1000);deleteContent(kind,text(data.id,'Identifiant',80,true));return Response.json({ok:true});}catch(error){return errorResponse(error);}}

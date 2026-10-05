@@ -19,3 +19,13 @@ Four project-bound photorealistic images generated with the built-in ImageGen to
 ## Verification
 
 Production build and TypeScript are checked before commit. Browser animation QA is not available in this environment; validate mobile crop, pinning, intro skip/repeat behavior, reduced motion and back navigation in an actual browser before release.
+
+## Campus experience assets (v3)
+
+Built-in ImageGen, photorealistic architectural photography, exported to WebP for the site:
+
+- `public/images/experience-room.webp`: Furnished student studio in Man, terracotta BTC feature wall, light wood bed and desk, cream linen, green sun screens, natural afternoon light. Modest and dignified, no luxury styling or people.
+- `public/images/experience-study.webp`: Campus coworking library, terracotta walls, light wood tables, green screens and West African adult students studying. Realistic anatomy, tactile materials and warm daylight.
+- `public/images/experience-garden.webp`: Landscaped courtyard of the sustainable campus, tropical trees, benches, shaded paths and adult students. Natural scale, warm afternoon light, no text or branding.
+
+All three are exploratory illustrations for project development, not official or final designs. The gallery is manually scrollable, with no vertical-scroll pin or automatic horizontal motion. Each card opens an accessible modal with intent and planned uses.

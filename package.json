@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "admin:setup": "node scripts/setup-admin.mjs",
+    "test:api": "node scripts/test-api.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -22,5 +24,8 @@
     "@types/react": "^19.0.3",
     "@types/react-dom": "^19.0.2",
     "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=22.13.0"
   }
 }
